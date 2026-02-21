@@ -1,0 +1,59 @@
+name: ZyxVold CI/CD
+
+on:
+  workflow_dispatch
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+          cache: gradle
+
+      - name: Make Gradlew Executable
+        run: chmod +x ./gradlew
+
+      - name: Build ZyxVold APK (Release)
+        run: ./gradlew :composeApp:assembleRelease
+        env:
+          GRADLE_OPTS: "-Xmx4096m"
+
+      - name: Upload ZyxVold APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zyxmus-release
+          path: composeApp/build/outputs/apk/release/
+          retention-days: 30
+
+      - name: List Build Output
+        run: |
+          echo "=== ZyxVold Build Complete ==="
+          ls -lah composeApp/build/outputs/apk/release/
+          echo "Package: com.fedom.zyxmus"
+          echo "Brand: ZyxVold"
+
+      - name: Create Release Notes
+        run: |
+          echo "# ZyxVold Music Player Release" > release_notes.md
+          echo "- Package: com.fedom.zyxmus" >> release_notes.md
+          echo "- Build Type: Release" >> release_notes.md
+          echo "- Compiled with JDK 17" >> release_notes.md
+          echo "- Gradle Command: :composeApp:assembleRelease" >> release_notes.md
+
+      - name: Upload Release Notes
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-notes
+          path: release_notes.md
