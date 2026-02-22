@@ -11,7 +11,6 @@ kotlin {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
     }
-    
     sourceSets {
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -19,10 +18,6 @@ kotlin {
             implementation(compose.material)
             implementation(compose.ui)
             implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-        }
-        androidMain.dependencies {
-            implementation(libs.androidx.activity.compose)
         }
     }
 }
@@ -30,7 +25,6 @@ kotlin {
 android {
     namespace = "com.fedom.zyxmus"
     compileSdk = 35
-
     defaultConfig {
         applicationId = "com.fedom.zyxmus"
         minSdk = 24
