@@ -1,8 +1,8 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.jetbrains.compose)
-    alias(libs.plugins.compose.compiler)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.multiplatform")
+    id("org.jetbrains.compose")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 kotlin {
@@ -25,6 +25,7 @@ kotlin {
 android {
     namespace = "com.fedom.zyxmus"
     compileSdk = 35
+
     defaultConfig {
         applicationId = "com.fedom.zyxmus"
         minSdk = 24
