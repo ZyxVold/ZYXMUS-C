@@ -25,7 +25,6 @@ kotlin {
 android {
     namespace = "com.fedom.zyxmus"
     compileSdk = 35
-
     defaultConfig {
         applicationId = "com.fedom.zyxmus"
         minSdk = 24
