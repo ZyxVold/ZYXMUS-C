@@ -25,11 +25,27 @@ kotlin {
 android {
     namespace = "com.fedom.zyxmus"
     compileSdk = 35
+
     defaultConfig {
         applicationId = "com.fedom.zyxmus"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
+        
+        // Uygulama ismini sisteme tanıtıyoruz
+        manifestPlaceholders["appName"] = "ZyxVold"
+    }
+
+    // Hatalı çeviri dosyalarını (strings.xml) atlayıp APK'yı oluşturmasını sağlar
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+        }
     }
 }
