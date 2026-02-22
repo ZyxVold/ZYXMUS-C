@@ -1,1 +1,41 @@
-plugins {\n    kotlin("jvm") version "1.6.10"\n}\n\nrepositories {\n    mavenCentral()\n}\n\ndependencies {\n    implementation("org.jetbrains.kotlin:kotlin-stdlib")\n}\n\nversion = "1.0.0"\n\ngroup = "com.fedom.zyxmus"\n\ndescription = "ZyxVold Music Player"\n\napplication {\n    mainClass.set("com.fedom.zyxmus.MainKt")\n}\n\ntasks {\n    jar {\n        archiveBaseName.set("zyxmus")\n    }\n}
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.compose.compiler)
+}
+
+kotlin {
+    androidTarget {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+        }
+    }
+    
+    sourceSets {
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.ui)
+            implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
+        }
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
+        }
+    }
+}
+
+android {
+    namespace = "com.fedom.zyxmus"
+    compileSdk = 35
+
+    defaultConfig {
+        applicationId = "com.fedom.zyxmus"
+        minSdk = 24
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0.0"
+    }
+}
