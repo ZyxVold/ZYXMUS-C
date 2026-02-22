@@ -1,4 +1,9 @@
-// Updated namespace in build.gradle.kts
-namespace = "com.fedom.compose.persist"
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+}
 
-// Other configurations remain the same
+android {
+    namespace = "com.fedom.compose.persist"
+    compileSdk = 35
+}
