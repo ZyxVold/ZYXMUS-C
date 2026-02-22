@@ -19,6 +19,12 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
         }
+        
+        // İŞTE EKSİK OLAN VE HATAYI ÇÖZECEK KISIM BURASI:
+        androidMain.dependencies {
+            implementation("androidx.appcompat:appcompat:1.6.1")
+            implementation("androidx.activity:activity-compose:1.8.2")
+        }
     }
 }
 
@@ -32,20 +38,11 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
-        
-        // Uygulama ismini sisteme tanıtıyoruz
         manifestPlaceholders["appName"] = "ZyxVold"
     }
 
-    // Hatalı çeviri dosyalarını (strings.xml) atlayıp APK'yı oluşturmasını sağlar
     lint {
         checkReleaseBuilds = false
         abortOnError = false
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
     }
 }
